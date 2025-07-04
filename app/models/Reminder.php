@@ -24,10 +24,16 @@ class Reminder {
       $statement->execute([$_SESSION['auth'], $subject]);
    }
 
-    public function update_reminder ($reminder_id) {
+    public function update_reminder ($reminder_id, $subject) {
       $db = db_connect();
-      //todo  update reminder
+      $statement = $db->prepare("UPDATE reminders SET subject = ? WHERE id = ?;");
+      $statement->execute([$subject, $reminder_id]);
     }
 
+    public function delete_reminder ($reminder_id) {
+      $db = db_connect();
+      $statement = $db->prepare("delete from reminders where id = ?;"); 
+      $statement->execute([$reminder_id]);
+    }
 }
 ?>
