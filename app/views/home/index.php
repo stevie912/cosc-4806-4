@@ -4,7 +4,6 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1>Hey</h1>
-                <p class="lead">Welcome to the home page, user_id </p><?php echo $_SESSION['user_id'] ?>
                 <p class="lead"> <?= date("F jS, Y"); ?></p>
             </div>
         </div>
