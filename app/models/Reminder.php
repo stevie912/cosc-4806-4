@@ -19,9 +19,10 @@ class Reminder {
     }
 
    public function create_reminder ($subject) {
+      $id = $_SESSION['user_id'];
       $db = db_connect();
       $statement = $db->prepare("insert into reminders (user_id, subject) values (?, ?);");
-      $statement->execute([$_SESSION['auth'], $subject]);
+      $statement->execute([$id, $subject]);
    }
 
     public function update_reminder ($reminder_id, $subject) {

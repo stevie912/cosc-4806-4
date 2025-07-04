@@ -40,18 +40,23 @@ class User {
 
       else {
         //get hashed password from database
-        $statement = $db->prepare("SELECT password, id FROM users WHERE username = :username");
+        $statement = $db->prepare("SELECT password FROM users WHERE username = :username");
         $statement->bindParam(':username', $username);
         $statement->execute();
         $statement->bindColumn('password', $valid_password);
-        $statement->bindColumn('id', $user_id);
         $$valid_password = $statement->fetch(PDO::FETCH_BOUND);
-        $user_id = $statement->fetch(PDO::FETCH_BOUND);
+
+        //get user id from database
+        $statement = $db->prepare("SELECT id FROM users WHERE username = :username");
+        $statement->bindParam(':username', $username);
+        $statement->execute();
+        $statement->bindColumn('id', $_SESSION['user_id']);
+        $$_SESSION['user_id'] = $statement->fetch(PDO::FETCH_BOUND);
+
 
         //check if password is correct
         if (password_verify($password, $valid_password)) {
           $_SESSION['auth'] = true;
-          $_SESSION['user_id'] = $user_id;
           $statement = $db->prepare("INSERT INTO logins (username, time, result) VALUES (?,  ?, ?)");
           $statement->execute([$username,  date("Y-m-d H:i:s"), 1]);
           header("Location: /home");
