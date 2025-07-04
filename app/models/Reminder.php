@@ -20,10 +20,8 @@ class Reminder {
 
    public function create_reminder ($subject) {
       $db = db_connect();
-      $statement = $db->prepare("insert into reminders (subject) values (:subject);");
-      $statement->bindValue(':subject', $subject);
-      $statement->execute();
-      // header("Location: /home");
+      $statement = $db->prepare("insert into reminders (user_id, subject) values (?, ?);");
+      $statement->execute([$_SESSION['auth'], $subject]);
    }
 
     public function update_reminder ($reminder_id) {
