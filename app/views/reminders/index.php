@@ -32,7 +32,7 @@
             </tbody>
         </table>
         <br>
-        <p><a href="/reminders/create">Create Reminder</a></p>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/reminders/create'">Create New Reminder</button>
         <br>
     </div>
    
