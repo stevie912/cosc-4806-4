@@ -14,10 +14,10 @@ class Reminders extends Controller {
   }
 
   public function create_r() {
-    $this->view('reminders/index');
     $subject = $_REQUEST['subject'];
     $reminder = $this->model('Reminder');
     $reminder->create_reminder($subject);
+    header("Location: /reminders");    
   }
 
   public function update() {
@@ -27,22 +27,19 @@ class Reminders extends Controller {
   }
 
   public function update_r() {
-    $this->view('reminders/index/');
     $subject = $_REQUEST['subject'];
     $reminder_id = $_REQUEST['reminder_id'];
     $reminder = $this->model('Reminder');
     $reminder->update_reminder($reminder_id, $subject);
+    header("Location: /reminders");    
   }
 
   public function delete() {
     $reminder_id = $_REQUEST['reminder_id'];
-    // $this->view('reminders/index', ['reminder_id' => $reminder_id]);
     $reminder = $this->model('Reminder');
     $reminder->delete_reminder($reminder_id);
     header("Location: /reminders");    
-    // $reminder = $this->model('Reminder');
-    // $reminder->delete_reminder($rid);
-    // $this->view('reminders/index/');
+
   }
   
 }
